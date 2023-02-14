@@ -58,7 +58,7 @@ let loadWeekForecastData = () => {
     let weather_week = weather_city.forecast_week;
     let this_week = document.getElementById("this_week");
     let text_this_week="";
-    console.log(this_week);
+    //console.log(this_week);
     let formatted_info = (day, date, icon, minTemp, maxTemp)=>{
       return `
       <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
@@ -95,5 +95,12 @@ let findWeatherCity=(name_city,data)=>{
 }
 
 
-loadDayForecastData();
-loadWeekForecastData();
+document.addEventListener("DOMContentLoaded", (event) => {
+  loadDayForecastData();
+  let loadInfo = document.getElementById("loadinfo");
+
+  loadInfo.addEventListener('click', (event) => {
+     
+    loadWeekForecastData();
+  });
+});
