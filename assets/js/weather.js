@@ -14,7 +14,7 @@ let loadDayForecastData = () => {
     let lb_rainfall = document.getElementById("rainfall");
     lb_city.innerHTML = `<h5 id="city" class="text-golden">${weather_today.city}</h5>`
     lb_mintemp.innerHTML=`<span id="mintemperature">${weather_today.mintemperature}</span>`;
-    lb_maxtemp.innerHTML=`<span id="maxtemperature">${weather_today.mintemperature}</span>`;
+    lb_maxtemp.innerHTML=`<span id="maxtemperature">${weather_today.maxtemperature}</span>`;
     lb_cloud.innerHTML=`<span id="cloudiness">${weather_today.cloudiness}</span>`;
     lb_wind.innerHTML=`<span id="wind">${weather_today.wind}</span>`;
     lb_rainfall.innerHTML=`<span id="rainfall">${weather_today.rainfall}</span>`;
@@ -93,6 +93,7 @@ let findWeatherCity=(name_city,data)=>{
         }
     }
 }
+
 
 loadDayForecastData();
 loadWeekForecastData();
