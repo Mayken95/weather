@@ -2,8 +2,8 @@
 import { weather_data } from './data.js';
 
 
-let loadDayForecastData = () => {
-    let weather_city =findWeatherCity("Guayaquil",weather_data);
+let loadDayForecastData = ( weather_city) => {
+   // let weather_city =findWeatherCity("Guayaquil",weather_data);
     let weather_today= weather_city;
 
     let lb_city= document.getElementById("city");
@@ -53,8 +53,8 @@ let loadDayForecastData = () => {
     
 }
 
-let loadWeekForecastData = () => {
-    let weather_city =findWeatherCity("Guayaquil",weather_data);
+let loadWeekForecastData = (weather_city) => {
+   // let weather_city =findWeatherCity("Guayaquil",weather_data);
     let weather_week = weather_city.forecast_week;
     let this_week = document.getElementById("this_week");
     let text_this_week="";
@@ -94,13 +94,41 @@ let findWeatherCity=(name_city,data)=>{
     }
 }
 
+let loadCities = ()=>{
+  let mySelect= document.getElementById("dropdownMenuButton");
+  for(let ciudad of weather_data){
+    var option = document.createElement("option");
+    option.value = ciudad.city;
+    option.text =  ciudad.city;
+    option.class = "dropdown-item"
+    mySelect.add(option);
+  } 
+}
+
+let searchDataCity=(city_chosen)=>{
+  let data_city= findWeatherCity(city_chosen,weather_data);
+  return data_city;
+}
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  loadDayForecastData();
+  loadCities();  
+  var city_chosen = (document.getElementById("dropdownMenuButton").value==""||document.getElementById("dropdownMenuButton").value==undefined)?"Guayaquil":document.getElementById("dropdownMenuButton").value;
+  let searchData =  searchDataCity(city_chosen);
+  loadDayForecastData(searchData);
   let loadInfo = document.getElementById("loadinfo");
-
-  loadInfo.addEventListener('click', (event) => {
-     
-    loadWeekForecastData();
+  let selectCities= document.getElementById("dropdownMenuButton");
+  loadInfo.addEventListener('click', (event) => {     
+    var city_chosen = (document.getElementById("dropdownMenuButton").value==""||document.getElementById("dropdownMenuButton").value==undefined)?"Guayaquil":document.getElementById("dropdownMenuButton").value;
+    let searchData =  searchDataCity(city_chosen);
+    loadWeekForecastData(searchData);
   });
+  selectCities.addEventListener('change', (event) => {   
+    //Código a ejecutar
+    //El event contiene la información del elemento seleccionado
+     let selectedValue = event.target.value ;
+     let this_week = document.getElementById("this_week");
+     this_week.innerHTML="";
+     let searchData =  searchDataCity( selectedValue)
+     loadDayForecastData(searchData);
+    });
 });
